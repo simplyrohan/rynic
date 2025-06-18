@@ -1,0 +1,18 @@
+{
+  "name": "rynic",
+  "version": "1.0.0",
+  "description": "A toy web proxy",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch",
+    "build": "webpack",
+    "build:prod": "webpack --mode=production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPLV3",
+  "devDependencies": {
+    "webpack-cli": "^6.0.1"
+  }
+}
