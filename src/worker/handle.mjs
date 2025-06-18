@@ -25,9 +25,7 @@ export async function rewriteRequest(res) {
 
     body = serialize(tree);
 
-    res = new Response(new Blob([body], { type: "text/html" }), {
-      headers: res.headers,
-    });
+    res = new Response(new Blob([body], { type: "text/html" }));
   }
 
   return res;
@@ -39,5 +37,5 @@ export async function handle(uri) {
 
   console.log("Got status code: " + res.status);
 
-  return rewriteRequest(res);
+  return rewriteRequest(res); 
 }

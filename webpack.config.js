@@ -15,6 +15,7 @@ module.exports = [
   {
     mode: "development",
     entry: "./src/worker/index.js",
+    target: "webworker",
     output: {
       filename: "rynicWorker.js",
       path: path.resolve(__dirname, "dist"),

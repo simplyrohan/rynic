@@ -1,20 +1,20 @@
 const urlPrefix = "/rynic/?uri=";
 
 /**
- * @param {string} url 
- * @param {string} window 
+ * @param {string} url
+ * @param {string} window
  */
 function rewriteURL(url, window) {
   if (!url.startsWith("http")) {
-    console.log("Rewriting URL: " + url)
     let windowURL = new URL(window);
     let bare = `${windowURL.protocol}//${windowURL.hostname}/`;
     if (url.startsWith("/")) {
       url = url.substring(1);
     }
-    console.log(bare + url)
-    return urlPrefix + encodeURIComponent(bare + url); 
+    console.log(`Rewriting ${url} -> ${bare + url}`);
+    return urlPrefix + encodeURIComponent(bare + url);
   }
+  console.log(`Rewriting ${url} -> ${url}`);
   return urlPrefix + encodeURIComponent(url);
 }
 
@@ -29,12 +29,9 @@ export function rewriteNode(node, url) {
 
   if (node.tagName == "a") {
     rewriteAttr(node, "href", url);
-  }
-  else if (node.tagName == "link") {
+  } else if (node.tagName == "link") {
     rewriteAttr(node, "href", url);
-  }
-
-  else if (node.tagName == "img") {
+  } else if (node.tagName == "img") {
     rewriteAttr(node, "src", url);
   }
 }
