@@ -21,7 +21,7 @@ export async function rewriteRequest(res) {
     let body = await res.text();
     let tree = parse(body);
 
-    modifyRecursive(tree, "a", rewriteNode);
+    modifyRecursive(tree, "a", (child) => {rewriteNode(child, res.url)});
 
     body = serialize(tree);
 

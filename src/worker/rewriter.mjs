@@ -1,19 +1,40 @@
 const urlPrefix = "/rynic/?uri=";
 
-function rewriteURL(url) {
-    return urlPrefix + encodeURIComponent(url);
+/**
+ * @param {string} url 
+ * @param {string} window 
+ */
+function rewriteURL(url, window) {
+  if (!url.startsWith("http")) {
+    console.log("Rewriting URL: " + url)
+    let windowURL = new URL(window);
+    let bare = `${windowURL.protocol}//${windowURL.hostname}/`;
+    if (url.startsWith("/")) {
+      url = url.substring(1);
+    }
+    console.log(bare + url)
+    return urlPrefix + encodeURIComponent(bare + url); 
+  }
+  return urlPrefix + encodeURIComponent(url);
 }
 
-function rewriteAnchor(anchor) {
-  for (let attr of anchor.attrs) {
-    if (attr.name == "href") attr.value = rewriteURL(attr.value);
+function rewriteAttr(node, targetAttr, url) {
+  for (let attr of node.attrs) {
+    if (attr.name == targetAttr) attr.value = rewriteURL(attr.value, url);
   }
 }
 
-export function rewriteNode(node) {
+export function rewriteNode(node, url) {
   if (!node.tagName) return;
 
   if (node.tagName == "a") {
-    rewriteAnchor(node);
+    rewriteAttr(node, "href", url);
+  }
+  else if (node.tagName == "link") {
+    rewriteAttr(node, "href", url);
+  }
+
+  else if (node.tagName == "img") {
+    rewriteAttr(node, "src", url);
   }
 }
