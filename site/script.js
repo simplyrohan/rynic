@@ -1,9 +1,7 @@
-const urlPrefix = "/?uri="
+navigator.serviceWorker.getRegistrations().then(function (registrations) {
+  for (let registration of registrations) {
+    registration.unregister();
+  }
+});
 
-urlInput = document.getElementById("url-input");
-urlSubmit = document.getElementById("submit");
-tabFrame = document.getElementById("tab");
-
-urlSubmit.addEventListener('click', () => {
-    tabFrame.src = urlPrefix + encodeURIComponent(urlInput.value);
-})
+navigator.serviceWorker.register("sw.js");

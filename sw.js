@@ -1,0 +1,1 @@
+importScripts("/dist/rynicWorker.js");
